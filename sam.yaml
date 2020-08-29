@@ -10,29 +10,21 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: example.Hello::handleRequest
-      Runtime: java8
+      Runtime: java11
       CodeUri: target/aws-test-1.0-SNAPSHOT-lambda-package.jar
-      MemorySize: 512
+      MemorySize: 1024
       Policies: AWSLambdaBasicExecutionRole
       Timeout: 30
       Events:
-#        GetResource:
-#          Type: Api
-#          Properties:
-#            Path: /{proxy+}
-#            Method: any
-        Api1:
+        GetResource:
           Type: Api
           Properties:
-            Path: /testFuncJava
-            Method: ANY
-        Api2:
-          Type: Api
-          Properties:
-            Path: /ping
-            Method: ANY
-        Api3:
-          Type: Api
-          Properties:
-            Path: /
-            Method: ANY
+            Path: /{proxy+}
+            Method: any
+
+Outputs:
+  BookServiceApi:
+    Description: URL for application
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping'
+    Export:
+      Name: BookServiceApi
