@@ -9,7 +9,6 @@ phases:
       - echo Build started on `date`
       - mvn install
       - aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket testbucket13642
-      - aws cloudformation deploy --template-file output-sam.yaml --stack-name ServerlessJerseyApi --capabilities CAPABILITY_IAM
   post_build:
     commands:
       - echo Build completed on `date`
